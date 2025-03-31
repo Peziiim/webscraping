@@ -26,14 +26,14 @@ public class PDF {
         String [] texts = pdfTextStripper.getText(document)
                                             .replace("OD", "SEG. ODONTOLOGICA")
                                             .replace("AMB", "SEG AMBULATÓRIO")
-                                            .split(",");
+                                            .split("[\\s]+?(\\n + {1,}|\\s{2,})");
 
 
         StringBuilder sb = new StringBuilder();
-        
-        for(String text : texts){    
 
+        for(String text : texts){     
             sb.append(text);
+
         }
         
             FileWriter writer = new FileWriter(locationCSV);
