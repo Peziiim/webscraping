@@ -15,12 +15,12 @@ import org.jsoup.select.Elements;
 
 public class Scraping {
 
-    public void scraping(String url, Path savePath) {
+    public void scraping(String url, Path savePath, String cssQuery) {
         try {
 
             Document doc = Jsoup.connect(url).get();
             Elements elements = doc
-                    .select("a.internal-link[href*=Anexo_][href$=.pdf]");
+                    .select(cssQuery);
 
             for (Element element : elements) {
                 String fileUrl = element.absUrl("href");
