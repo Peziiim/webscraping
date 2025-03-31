@@ -32,7 +32,7 @@ public class AppTest {
     @Test
     public void testToZip() throws IOException{
         String stringPath = path.toString();
-        compactor.toZip(stringPath, stringPath + ".zip");
+        compactor.toZipPDF(stringPath, stringPath + ".zip");
 
         assertTrue(Files.exists(Path.of(path + ".zip")));
 
