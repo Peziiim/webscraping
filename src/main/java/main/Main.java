@@ -7,18 +7,18 @@ import compactor.Compactor;
 import pdf_extract.PDF;
 import scraping.Scraping;
 
-public class App {
+public class Main {
    public static void main(String[] args){
+       
+    Scraping scraping = new Scraping();
+    Compactor comp = new Compactor();
+    PDF pdf = new PDF();  
  
     String path = "src/main/java/files/pdfs";
     String pdfPath = "src/main/java/files/pdfs/";
     String csvPath = "src/main/java/files/csv/tabela.csv";
     String csvZip = "src/main/java/files/csv/Teste_Eduardo.zip";
     String url = "https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos";
-
-    Scraping scraping = new Scraping();
-    Compactor comp = new Compactor();
-    PDF pdf = new PDF();  
 
     scraping.scraping(url, Path.of(path));
     

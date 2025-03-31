@@ -22,7 +22,9 @@ public class Compactor {
     
                 FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
                 ZipOutputStream zipOutputStream = new ZipOutputStream(new BufferedOutputStream(fileOutputStream));
-                zipFolder(folder, folder.getName(), zipOutputStream); }  
+                
+                zipFolder(folder, folder.getName(), zipOutputStream); 
+            }  
     }
 
 
@@ -30,8 +32,9 @@ public class Compactor {
     private void zipFolder(File folder, String basePath, ZipOutputStream zipOutputStream) throws IOException {
        
         File[] files = folder.listFiles();
-        if (files == null) {return;} 
         byte[] buffer = new byte[BUFFER_KB];
+
+        if (files == null) {return;} 
 
         for (File file : files) {
             String zipEntryName = basePath + "/" + file.getName();
@@ -41,7 +44,6 @@ public class Compactor {
 
             } else 
                 {
-
                     FileInputStream fileInputStream = new FileInputStream(file);
                     BufferedInputStream origin = new BufferedInputStream(fileInputStream, BUFFER_KB);
                     ZipEntry entry = new ZipEntry(zipEntryName);

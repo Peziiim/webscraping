@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -15,17 +12,11 @@ import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-
-import compactor.Compactor;
 
 
 public class PDF {
-    private Compactor compactor = new Compactor();
 
     public void extractPDF(String pdfPath, String locationCSV, String locationCSVZip) throws IOException {
-        String filePath = "src/main/java/files/csv/Teste_Eduardo.zip";
 
         PDDocument document = Loader
                             .loadPDF(new File(pdfPath));
@@ -61,6 +52,7 @@ public class PDF {
             zos.closeEntry();
 
             document.close();
+            zos.close();
     }
 
         
