@@ -10,11 +10,14 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import compactor.Compactor;
+import pdf_extract.PDF;
 import scraping.Scraping;
 
 public class AppTest {
     private Compactor compactor = new Compactor();
     private Scraping scraping = new Scraping();
+    private PDF pdf = new PDF();
+
     private Path path = Path.of("src/test/java/filestest/dummy.pdf");
 
     @Test
@@ -26,18 +29,20 @@ public class AppTest {
         assertTrue(Files.exists(path));
 
         // Comente a linha abaixo para ver o arquivo guardado na pasta
-        Files.deleteIfExists(path);
+       // Files.deleteIfExists(path);
     }
 
     @Test
     public void testToZip() throws IOException{
-        String stringPath = path.toString();
-        compactor.toZipPDF(stringPath, stringPath + ".zip");
 
-        assertTrue(Files.exists(Path.of(path + ".zip")));
+        String stringPath = path.toString();
+        compactor.toZipPDF(stringPath, stringPath + ".zip");//
+
+        assertTrue(Files.exists(Path.of(stringPath + ".zip")));
 
          // Comente a linha abaixo para ver o arquivo guardado na pasta
          Files.deleteIfExists(path);
     
     }
+
 }

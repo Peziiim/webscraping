@@ -16,6 +16,8 @@ import org.jsoup.select.Elements;
 public class Scraping {
 
     public void scraping(String url, Path savePath, String cssQuery) {
+        System.out.println("Extraindo dados em " + url);
+
         try {
 
             Document doc = Jsoup.connect(url).get();
@@ -33,22 +35,30 @@ public class Scraping {
                 downloadFile(fileUrl, filePath);
             }
 
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException e) {
             System.out.println("Erro ao acessar a URL: " + e.getMessage());
             e.printStackTrace();
         }
 
     }
 
-    public void downloadFile(String fileUrl, Path savePath) throws IOException, URISyntaxException {
+    public void downloadFile(String fileUrl, Path savePath) throws IOException {
 
-        Files.createDirectories(savePath.getParent());
+        try {
 
-        Files.copy(new URI(fileUrl).toURL()
-                                    .openStream(),
-                                    savePath,
-                                    StandardCopyOption.REPLACE_EXISTING);
+            Files.createDirectories(savePath.getParent());
+    
+            Files.copy(new URI(fileUrl).toURL()
+                                        .openStream(),
+                                        savePath,
+                                        StandardCopyOption.REPLACE_EXISTING);
+        } catch (URISyntaxException e ){
+            System.out.println("Erro de sintaxe na URI: ");
+            e.printStackTrace();
+        }
 
     }
+
+    
 
 }
