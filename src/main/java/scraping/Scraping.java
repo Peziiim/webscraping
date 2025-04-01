@@ -14,22 +14,26 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class Scraping {
-    
 
-    public void scraping(String url, Path savePath) {
+    public void scraping(String url, Path savePath, String cssQuery) {
         try {
+
             Document doc = Jsoup.connect(url).get();
-            Elements elements = doc.select("a.internal-link[href*=Anexo_][href$=.pdf]");
+            Elements elements = doc
+                    .select(cssQuery);
 
             for (Element element : elements) {
                 String fileUrl = element.absUrl("href");
-                String fileName = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
+
+                String fileName = fileUrl.substring(fileUrl
+                        .lastIndexOf('/') + 1);
+
                 Path filePath = savePath.resolve(fileName);
 
                 downloadFile(fileUrl, filePath);
             }
-        } catch (IOException | URISyntaxException e) {
 
+        } catch (IOException | URISyntaxException e) {
             System.out.println("Erro ao acessar a URL: " + e.getMessage());
             e.printStackTrace();
         }
@@ -41,8 +45,8 @@ public class Scraping {
         Files.createDirectories(savePath.getParent());
 
         Files.copy(new URI(fileUrl).toURL()
-                                    .openStream(), 
-                                    savePath, 
+                                    .openStream(),
+                                    savePath,
                                     StandardCopyOption.REPLACE_EXISTING);
 
     }
