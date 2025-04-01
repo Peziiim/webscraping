@@ -27,9 +27,9 @@ public class Main {
 
     scraping.scraping(ROIurl, Path.of(pathROI), "a.internal-link[href*=Anexo_][href$=.pdf]");
 
-    scraping.scraping(dataUrl + "/2023", Path.of(dataPath), "[href$=.zip]");
-    scraping.scraping(dataUrl + "/2024", Path.of(dataPath), "[href$=.zip]");
-    scraping.scraping(operatorsURL, Path.of(dataPath + "/csv"), "[href$=.csv]");
+    scraping.scraping(dataUrl + "/2023", Path.of(dataPath + "/csvZip"), "[href$=.zip]");
+    scraping.scraping(dataUrl + "/2024", Path.of(dataPath + "/csvZip"), "[href$=.zip]");
+    scraping.scraping(operatorsURL, Path.of(dataPath + "/csvZip"), "[href$=.csv]");
     
     try{
         comp.toZipPDF(pathROI, pathROI + ".zip");    
@@ -38,7 +38,6 @@ public class Main {
     } catch (IOException e){
         e.printStackTrace();
     }
-    
-    System.out.println("hello world");
+        System.out.println("The program has finished");
     }
 }

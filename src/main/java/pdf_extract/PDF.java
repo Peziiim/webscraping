@@ -26,7 +26,7 @@ public class PDF {
         String [] texts = pdfTextStripper.getText(document)
                                             .replace("OD", "SEG. ODONTOLOGICA")
                                             .replace("AMB", "SEG AMBULATÓRIO")
-                                            .split("[\\s]+?(\\n + {1,}|\\s{2,})");
+                                            .split("\t");
 
 
         StringBuilder sb = new StringBuilder();
