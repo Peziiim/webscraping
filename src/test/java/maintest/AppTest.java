@@ -10,13 +10,12 @@ import java.nio.file.Path;
 import org.junit.Test;
 
 import compactor.Compactor;
-import pdf_extract.PDF;
 import scraping.Scraping;
 
 public class AppTest {
     private Compactor compactor = new Compactor();
     private Scraping scraping = new Scraping();
-    private PDF pdf = new PDF();
+ 
 
     private Path path = Path.of("src/test/java/filestest/dummy.pdf");
 

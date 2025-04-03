@@ -7,12 +7,7 @@
     </div>
 
     <div class="inputs">
-      <input v-model="searchQuery" @input="filterItems" placeholder="Representante" />
       <input v-model="searchQuery" @input="filterItems" placeholder="Registro ANS" />
-      <input v-model="searchQuery" @input="filterItems" placeholder="Nome Fantasia" />
-      <input v-model="searchQuery" @input="filterItems" placeholder="Descrição" />
-      <input v-model="searchQuery" @input="filterItems" placeholder="CEP" />
-      <input v-model="searchQuery" @input="filterItems" placeholder="UF" />
     </div>
 
     <div class="queryResult">
@@ -46,7 +41,7 @@ export default {
         },
       },
       created() {
-        this.filteredItems = [...this.items];
+        this.filteredItems = this.items;
       }
 }
 </script>
@@ -77,6 +72,7 @@ body{
 
 input {
   height: 35px;
+  width: 100%;
   border-radius: 5px;
   border: 2px solid #2c3e50;
   margin: 2px;
