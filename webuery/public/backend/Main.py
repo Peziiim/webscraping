@@ -10,22 +10,32 @@ def get_connection():
         password='Sete45082526.',
         database='relatorios'
     )
+    print("Conexão bem sucedida")
     return mydb
 
-@app.route('/', methods=['POST'])
+@app.route('/get-tables', methods=['POST', 'GET'])
 def form():
     mydb = get_connection()
     mycursor = mydb.cursor()
+
+    search_query = request.json.get('search_query', '').strip()
 
     query = """
     SELECT a.Registro_ANS, a.CNPJ, a.Nome_Fantasia, a.Modalidade, a.UF, a.CEP, a.Representante, 
            a.Data_Registro_ANS, b.DESCRICAO, b.VL_SALDO_INICIAL, b.VL_SALDO_FINAL, 
            (b.VL_SALDO_INICIAL - b.VL_SALDO_FINAL) AS DIFERENCA
     FROM relatorio_cadop a
-    JOIN all_tables b ON a.REGISTRO_ANS = b.REG_ANS
+    JOIN _1t2023 b ON a.REGISTRO_ANS = b.REG_ANS
     """
 
-    mycursor.execute(query)
+
+    filters = []
+    if search_query:
+        query += " WHERE a.Registro_ANS LIKE %s"
+        filters = [f'%{search_query}%']
+
+
+    mycursor.execute(query, filters)
     result = mycursor.fetchall()
 
     items = [
@@ -38,17 +48,20 @@ def form():
             'a.CEP': row[5], 
             'a.Representante': row[6], 
             'a.Data_Registro_ANS': row[7], 
-            'b.DESCRICAO': row[8]
+            'b.DESCRICAO': row[8],
+            'VL_SALDO_INICIAL': row[9],
+            'VL_SALDO_FINAL': row[10],
+            'DIFERENCA': row[11]
         } for row in result
     ]
 
     mydb.close()
 
     response = {
-        'searchQuery': request.form.get('nome_busca', '') if request.method == 'POST' else '',
-        'items': items,
-        'filteredItems': items  
-    }
+    'items': items,
+    'searchQuery': search_query,
 
-    if request.method == 'POST':
+   }
+
+    if request.method == 'POST' or request.method == 'GET':
         return jsonify(response)

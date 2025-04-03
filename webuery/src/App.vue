@@ -1,114 +1,128 @@
 <template>
   <div class="container">
     <div class="header">
-      <img src="../public/gov.svg" alt="image gov">
-        <h1>O que você está procurando?</h1>
-        <h5>Relatório CADOP 23/24</h5>
+      <img src="../public/gov.png" alt="image gov">
+      <h1>O que você está procurando?</h1>
+      <h5>Relatório CADOP 23/24</h5>
     </div>
-
+    
     <div class="inputs">
-      <input v-model="searchQuery" @input="filterItems" placeholder="Registro ANS" />
+      <input 
+        v-model="searchQuery" 
+        @input="debounceSearch" 
+        placeholder="Registro ANS" 
+        class="search-input"
+      />
+      <button @click="fetchData" class="search-button">Buscar</button>
     </div>
-
-    <div class="queryResult">
-      <ul>
-        <li v-for="item in filteredItems" :key="item.id">{{ item.name }}</li>
-      </ul>
+      
+      <table class="results-table">
+        <thead>
+          <tr>
+            <th>Registro ANS</th>
+            <th>CNPJ</th>
+            <th>Nome Fantasia</th>
+            <th>Modalidade</th>
+            <th>UF</th>
+            <th>Descrição</th>
+            <th>Saldo Inicial</th>
+            <th>Saldo Final</th>
+            <th>Diferença</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in items" :key="item['a.Registro_ANS']">
+            <td>{{ item['a.Registro_ANS'] }}</td>
+            <td>{{ item['a.CNPJ'] }}</td>
+            <td>{{ item['a.Nome_Fantasia'] }}</td>
+            <td>{{ item['a.Modalidade'] }}</td>
+            <td>{{ item['a.UF'] }}</td>
+            <td>{{ item['b.DESCRICAO'] }}</td>
+            <td>{{ item['VL_SALDO_INICIAL'] }}</td>
+            <td>{{ item['VL_SALDO_FINAL'] }}</td>
+            <td>{{ item['DIFERENCA'] }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
 </template>
-
 <script>
+
+
 export default {
-  name: 'app',
-  data() {
-        return {
-          searchQuery: '',
-          items: [
-            { id: 1, name: 'Maçã' },
-            { id: 2, name: 'Banana' },
-            { id: 3, name: 'Laranja' },
-            { id: 4, name: 'Manga' },
-          ],
-          filteredItems: [],
-        };
-      },
-      methods: {
-        filterItems() {
-          this.filteredItems = this.items.filter(item =>
-            item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-          );
-        },
-      },
-      created() {
-        this.filteredItems = this.items;
-      }
+  name: 'App',
+  
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #ffffff;
-  margin-top: 60px;
+body {
+  background-color: #3d4766;
+}
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-body{
-  background-color: #273848;
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header img {
+  max-width: 200px;
 }
 
 .inputs {
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); 
-  width: 80%;
-
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-input {
-  height: 35px;
-  width: 100%;
-  border-radius: 5px;
-  border: 2px solid #2c3e50;
-  margin: 2px;
+.search-input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
 }
 
-img {
-  width: 200px;
-  margin: 50px;
+.search-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.queryResult {
-  margin: 200px;
+.search-button:hover {
+  background-color: #45a049;
 }
 
-ul {
-  list-style-type: none;
+.loading, .error, .no-results {
+  text-align: center;
+  padding: 20px 20px 0 0;
+  font-size: 16px;
 }
 
-@media (max-width:450px){
-  .inputs {
-    margin-top: 150px;
-  }
-
-  .queryResult {
-    margin: 350px 0 0 0;
-  }
+.error {
+  color: red;
 }
 
-@media (max-width:990px){
-  .inputs {
-   position: relative;
-  }
-
-  .queryResult {
-   position: relative;
-   margin: 0;
-  }
+.results-table {
+  width: 90%; 
+  background-color: white;
+  
 }
+
+.results-table th, .results-table tr{
+  border-right: 3px solid grey;
+  height: 100%;
+}
+
 </style>
