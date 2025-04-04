@@ -34,7 +34,7 @@ export default {
     async getFunction() {
       try{
         const response = await axios.post('http://127.0.0.1:5000/get-tables', {
-              searchQuery: this.searchQuery
+          search_query: this.searchQuery
             
           });
 
