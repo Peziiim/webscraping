@@ -17,6 +17,9 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import exceptions.DownloadException;
+import exceptions.ScraperException;
+
 public class Scraping {
     private static final Logger LOGGER = Logger.getLogger(Scraping.class.getName());
     private static final int DEFAULT_TIMEOUT = 30000;
