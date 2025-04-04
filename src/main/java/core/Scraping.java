@@ -64,7 +64,7 @@ public class Scraping {
         }
     }
 
-    private Path downloadFile(String fileUrl, Path savePath) throws DownloadException {
+    public Path downloadFile(String fileUrl, Path savePath) throws DownloadException {
         LOGGER.info("Baixando arquivo: " + fileUrl);
 
         try {
