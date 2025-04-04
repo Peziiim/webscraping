@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import mysql.connector
 
 app = Flask(__name__)
+CORS(app, resources={r"/get-tables": {"origins": "*"}})
 
 def get_connection():
     mydb = mysql.connector.connect(
@@ -21,17 +23,19 @@ def form():
     search_query = request.json.get('search_query', '').strip()
 
     query = """
-    SELECT a.Registro_ANS, a.CNPJ, a.Nome_Fantasia, a.Modalidade, a.UF, a.CEP, a.Representante, 
-           a.Data_Registro_ANS, b.DESCRICAO, b.VL_SALDO_INICIAL, b.VL_SALDO_FINAL, 
-           (b.VL_SALDO_INICIAL - b.VL_SALDO_FINAL) AS DIFERENCA
-    FROM relatorio_cadop a
-    JOIN _1t2023 b ON a.REGISTRO_ANS = b.REG_ANS
+    SELECT Registro_ANS, CNPJ, Nome_Fantasia, Modalidade, UF, CEP, Representante, 
+           Data_Registro_ANS,
+    FROM relatorio_cadop
     """
 
 
     filters = []
     if search_query:
-        query += " WHERE a.Registro_ANS LIKE %s"
+        query += """
+        WHERE Registro_ANS LIKE %s OR CNPJ LIKE %s OR Nome_Fantasia LIKE %s OR 
+              Modalidade LIKE %s OR UF LIKE %s OR CEP LIKE %s OR 
+              Representante LIKE %s OR Data_Registro_ANS LIKE %s
+        """
         filters = [f'%{search_query}%']
 
 
@@ -58,10 +62,13 @@ def form():
     mydb.close()
 
     response = {
-    'items': items,
     'searchQuery': search_query,
+    'items': items,
 
    }
 
     if request.method == 'POST' or request.method == 'GET':
         return jsonify(response)
+    
+if __name__ == '__main__':
+    app.run(debug=True)

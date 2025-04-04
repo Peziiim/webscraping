@@ -1,58 +1,58 @@
 <template>
   <div class="container">
     <div class="header">
-      <img src="../public/gov.png" alt="image gov">
+      <img src="./assets/gov.png" alt="image gov">
       <h1>O que você está procurando?</h1>
       <h5>Relatório CADOP 23/24</h5>
     </div>
     
-    <div class="inputs">
+    <div class="inputs" action="/get-tables" method="post">
       <input 
         v-model="searchQuery" 
-        @input="debounceSearch" 
-        placeholder="Registro ANS" 
+        placeholder="Digite aqui" 
         class="search-input"
+        id="form" 
       />
-      <button @click="fetchData" class="search-button">Buscar</button>
+      <button @click.prevent="btnGet" class="search-button">Buscar</button>
     </div>
-      
-      <table class="results-table">
-        <thead>
-          <tr>
-            <th>Registro ANS</th>
-            <th>CNPJ</th>
-            <th>Nome Fantasia</th>
-            <th>Modalidade</th>
-            <th>UF</th>
-            <th>Descrição</th>
-            <th>Saldo Inicial</th>
-            <th>Saldo Final</th>
-            <th>Diferença</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in items" :key="item['a.Registro_ANS']">
-            <td>{{ item['a.Registro_ANS'] }}</td>
-            <td>{{ item['a.CNPJ'] }}</td>
-            <td>{{ item['a.Nome_Fantasia'] }}</td>
-            <td>{{ item['a.Modalidade'] }}</td>
-            <td>{{ item['a.UF'] }}</td>
-            <td>{{ item['b.DESCRICAO'] }}</td>
-            <td>{{ item['VL_SALDO_INICIAL'] }}</td>
-            <td>{{ item['VL_SALDO_FINAL'] }}</td>
-            <td>{{ item['DIFERENCA'] }}</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
 </template>
 <script>
-
+  import axios from 'axios';
 
 export default {
   name: 'App',
-  
+  data() {
+    return {
+      searchQuery: '',
+      items: []
+    };
+  },
+
+  methods: {
+
+    async getFunction() {
+      try{
+        const response = await axios.post('http://127.0.0.1:5000/get-tables', {
+              searchQuery: this.searchQuery
+            
+          });
+
+          this.items = response.data.items || [];
+
+        } catch (error) {
+          console.error('Erro buscando os dados:', error);
+          this.items = []; 
+        }
+      },
+
+        btnGet() {
+        this.getFunction();
+        console.log(this.searchQuery);
+     }
+  }      
 }
+
 </script>
 
 <style>
@@ -121,8 +121,12 @@ body {
 }
 
 .results-table th, .results-table tr{
-  border-right: 3px solid grey;
+  border-right: 1px solid grey;
   height: 100%;
+}
+
+#first {
+  border-left: 1px solid grey;
 }
 
 </style>
