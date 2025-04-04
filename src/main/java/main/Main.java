@@ -1,39 +1,35 @@
 package main;
 
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import core.Compactor;
+import core.Executor;
 import core.PDF;
 import core.Scraping;
 
 public class Main {
-   public static void main(String[] args){
        
-    Scraping scraping = new Scraping();
-    Compactor comp = new Compactor();
-    PDF pdf = new PDF();  
- 
-    String pathROI = "src/main/java/files/pdfs";
-    String pdfPath = "src/main/java/files/pdfs/";
-    String csvPath = "src/main/java/files/csv/tabela.csv";
-    String dataPath = "src/main/java/files/mysql_files/csvPath";
-    
-    String ROIurl = "https://www.gov.br/ans/pt-br/acesso-a-informacao/participacao-da-sociedade/atualizacao-do-rol-de-procedimentos";
-    String dataUrl = "https://dadosabertos.ans.gov.br/FTP/PDA/demonstracoes_contabeis/";
-    String operatorsURL = "https://dadosabertos.ans.gov.br/FTP/PDA/operadoras_de_plano_de_saude_ativas/";
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
+    public static void main(String[] args) {
+        try {
+            configureLogging();
 
-        scraping.scraping(ROIurl, Path.of(pathROI), "a.internal-link[href*=Anexo_][href$=.pdf]");
-        comp.toZipPDF(pathROI, pathROI + ".zip");
+            final Scraping scraper = new Scraping();
+            final Compactor compactor = new Compactor();
+            final PDF pdfProcessor = new PDF();
+            final Executor executor = new Executor(scraper, compactor, pdfProcessor);
 
-        scraping.scraping(dataUrl + "/2023", Path.of(dataPath), "[href$=.zip]");
-        scraping.scraping(dataUrl + "/2024", Path.of(dataPath), "[href$=.zip]");
-        scraping.scraping(operatorsURL, Path.of(dataPath), "[href$=.csv]");
-    
+            executor.execute();
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Erro durante a execução: " + e.getMessage(), e);
+        }
+    }
 
-       pdf.extractPDF(pdfPath + "Anexo_I_Rol_2021RN_465.2021_RN627L.2024.pdf", csvPath, csvPath);
-
-  
-        System.out.println("The program has finished");
+    private static void configureLogging() {
+        final Logger rootLogger = Logger.getLogger("");
+        rootLogger.setLevel(Level.INFO);
     }
 }
