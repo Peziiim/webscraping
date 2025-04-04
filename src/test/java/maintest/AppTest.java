@@ -9,15 +9,15 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import compactor.Compactor;
-import scraping.Scraping;
+import core.Compactor;
+import core.Scraping;
 
 public class AppTest {
     private Compactor compactor = new Compactor();
     private Scraping scraping = new Scraping();
  
 
-    private Path path = Path.of("src/test/java/filestest/dummy.pdf");
+    private Path path = Path.of("../src/test/java/filestest/");
 
     @Test
     public void testDownloadFile() throws IOException, URISyntaxException {
@@ -28,7 +28,7 @@ public class AppTest {
         assertTrue(Files.exists(path));
 
         // Comente a linha abaixo para ver o arquivo guardado na pasta
-       // Files.deleteIfExists(path);
+        Files.deleteIfExists(path);
     }
 
     @Test
