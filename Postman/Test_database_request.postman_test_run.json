@@ -1,0 +1,198 @@
+{
+	"id": "3ddf5177-1d33-41e3-908b-4c1d13ff1b27",
+	"name": "Test_database_request",
+	"timestamp": "2025-04-04T14:22:04.236Z",
+	"collection_id": "43730037-75c6b826-41a0-43d3-8cbe-53f7ecf99598",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 0,
+	"delay": "1000",
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-04-04T14:21:55.242Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "5b0b9358-c8f6-46b9-b500-4991a7e1d4cb",
+			"name": "Requesting_REG_ANS",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				15
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "2e85fcd4-c052-4a35-88ba-5d752abef656",
+			"name": "Requesting_CNPJ",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 33,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				33
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "cdb4e35a-26fe-4224-9a83-1761d9a0c978",
+			"name": "Requesting_Nome_Fantasia",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 32,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				32
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "73ee6684-43ba-4713-8b71-83479fb316fb",
+			"name": "Requesting_ Modalidade",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 34,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				34
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "4b27a0d3-ebcd-4467-9fee-663ee0ab7964",
+			"name": "Requesting_UF",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 45,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				45
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "dbc20bb0-6e8b-41e2-bea8-f8bff8018408",
+			"name": "Requesting_CEP",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 25,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				25
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "12ed5666-e353-4603-8c4d-986285454487",
+			"name": "Requesting_Representante",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 25,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				25
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "36a64328-122a-4dab-beab-d13ca8f45239",
+			"name": "Requesting_Data_Registro_ANS",
+			"url": "http://127.0.0.1:5000/get-tables",
+			"time": 28,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				28
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 237,
+	"collection": {
+		"requests": [
+			{
+				"id": "5b0b9358-c8f6-46b9-b500-4991a7e1d4cb",
+				"method": "POST"
+			},
+			{
+				"id": "2e85fcd4-c052-4a35-88ba-5d752abef656",
+				"method": "POST"
+			},
+			{
+				"id": "cdb4e35a-26fe-4224-9a83-1761d9a0c978",
+				"method": "POST"
+			},
+			{
+				"id": "73ee6684-43ba-4713-8b71-83479fb316fb",
+				"method": "POST"
+			},
+			{
+				"id": "4b27a0d3-ebcd-4467-9fee-663ee0ab7964",
+				"method": "POST"
+			},
+			{
+				"id": "dbc20bb0-6e8b-41e2-bea8-f8bff8018408",
+				"method": "POST"
+			},
+			{
+				"id": "12ed5666-e353-4603-8c4d-986285454487",
+				"method": "POST"
+			},
+			{
+				"id": "36a64328-122a-4dab-beab-d13ca8f45239",
+				"method": "POST"
+			}
+		]
+	}
+}
