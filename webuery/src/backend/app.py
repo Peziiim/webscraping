@@ -76,7 +76,7 @@ def form():
    }
 
     if request.method == 'POST' or request.method == 'GET':
-        #Para verificar o resultado através do botaõ da interface web
+        #Para verificar o resultado através do botão da interface web pelo terminal
         print(f"Response: {response}")
         return jsonify(response)
     
