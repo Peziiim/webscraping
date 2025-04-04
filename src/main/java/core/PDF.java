@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -13,10 +15,10 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
 public class PDF {
+      private static final Logger LOGGER = Logger.getLogger(PDF.class.getName());
 
     public void extractPDF(String pdfPath, String locationCSV, String locationCSVZip) {
-        System.out.println("Extraindo PDF ");
-
+        LOGGER.info("Extraindo PDF: " + pdfPath + " para: \n" + locationCSV);
         
         StringBuilder sb = new StringBuilder();
 
@@ -38,8 +40,7 @@ public class PDF {
         document.close();
 
     } catch (IOException e){
-        System.out.println("PDF não encontrado: "); 
-        e.printStackTrace();  
+       LOGGER.log(Level.WARNING, locationCSVZip + " não encontrado: " + e.getMessage());
     }
 
 
@@ -68,8 +69,7 @@ public class PDF {
         zos.close();
         
     } catch (IOException e){
-        System.out.println("Arquivo não encontrado: "); 
-        e.printStackTrace();  
+       LOGGER.warning("Erro ao criar o arquivo CSV: " + e.getMessage());
     }
         
      
