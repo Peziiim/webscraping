@@ -1,4 +1,4 @@
-package scraping;
+package core;
 
 import java.io.IOException;
 

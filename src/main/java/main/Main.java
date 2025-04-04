@@ -2,9 +2,9 @@ package main;
 
 import java.nio.file.Path;
 
-import compactor.Compactor;
-import pdf_extract.PDF;
-import scraping.Scraping;
+import core.Compactor;
+import core.PDF;
+import core.Scraping;
 
 public class Main {
    public static void main(String[] args){

@@ -9,8 +9,8 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import compactor.Compactor;
-import scraping.Scraping;
+import core.Compactor;
+import core.Scraping;
 
 public class AppTest {
     private Compactor compactor = new Compactor();
